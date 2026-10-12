@@ -1,2 +1,2 @@
-100500
-ExpenseAmount
+40
+500
