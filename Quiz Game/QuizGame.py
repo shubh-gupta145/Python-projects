@@ -1,12 +1,15 @@
 import os
-
-from groq import Groq
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
-api_key = os.getenv("GROQ_API_KEY")
-client = Groq(api_key=api_key)
+api_key = os.getenv("Open_API_KEY")
+
+if not api_key:
+    raise ValueError("Open_API_KEY not found in .env file")
+
+client = OpenAI(api_key=api_key)
 
 Ques = {
     "Java": [
@@ -69,16 +72,20 @@ evaluation_prompt = (
     f"Here are the questions and answers:\n\n{qa}"
 )
 
-result = client.chat.completions.create(
-    model="llama-3.3-70b-versatile",
-    messages=[
-        {
-            "role": "user",
-            "content": evaluation_prompt
-        }
-    ],
-    temperature=0.3
-)
+try:
+    result = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": evaluation_prompt
+            }
+        ],
+        temperature=0.3
+    )
 
-print("\n========== EVALUATION RESULT ==========\n")
-print(result.choices[0].message.content)
+    print("\n========== EVALUATION RESULT ==========\n")
+    print(result.choices[0].message.content)
+
+except Exception as e:
+    print(f"Error while evaluating answers: {e}")
