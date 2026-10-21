@@ -1,52 +1,89 @@
-Choice = True
+class Contact:
+    def __init__(self, name, number, email, favorite):
+        self.name = name
+        self.number = number
+        self.email = email
+        self.favorite = favorite
 
-while Choice:
+    def display(self):
+        print(f"Name     : {self.name}")
+        print(f"Number   : {self.number}")
+        print(f"Email    : {self.email}")
+        print(f"Favorite : {self.favorite}")
+        print("-" * 30)
 
-    print("======== Contact Details ========")
-    print(" ")
-    print("1. Add The New Contact.")
-    print("2. View all Contacts.")
-    print("3. Search Contact.")
-    print("4. Update Contact.")
-    print("5. Delete Contact.")
-    print("6. Exit. ")
-    print(" ")
-    print("=================================")
 
-    Contact = {}
+contacts = []  
 
-    UserChoice = int(input("Enter the Your Choice --> "))
+while True:
+    print("\n======== Contact Book ========")
+    print("1. Add Contact")
+    print("2. View all Contacts")
+    print("3. Search Contact")
+    print("4. Update Contact")
+    print("5. Delete Contact")
+    print("6. Exit")
+    print("==============================")
 
-    if (UserChoice == 1 ):
-        class Contact:
+    try:
+        choice = int(input("Enter your choice --> "))
+    except ValueError:
+        print("Please enter a number.")
+        continue
 
-            def __init__(self,ContactName,ContactNumb,ContactEmail,favorite):
-                self.ContactName = ContactName
-                self.ContactNumb = ContactNumb  
-                self.ContactEmail = ContactEmail
-                self.favorite = favorite
-        while choice == 'yes':
+    if choice == 1:
+        while True:
+            name = input("Enter name --> ")
+            number = input("Enter number --> ")   
+            email = input("Enter email --> ")
+            fav = input("Favorite? (yes/no) --> ")
 
-            print("==========  Add The Contact  ==========")
+            contacts.append(Contact(name, number, email, fav))
+            print("Contact added! Successfully.")
 
-            ContactName = input(" Enter the Contact Name --> ")
-            ContactNumb = int(input("Enter The Contact Number -->"))
-            ContactEmail = input("Enter The Contact Email --> ")
-            favorite = input("Enter The Favorite List in Your Contact 'YES' or 'NO' ")
+            again = input("Add another? (yes/no): ").lower()
+            if again == "no":
+                break
 
-            choice = input("Do you want to add another contact? (yes/no): ").lower()
-            if choice != 'no':
-                breakpoint
+    elif choice == 2:
+        if not contacts:
+            print("No contacts yet.")
+        for c in contacts:
+            c.display()
 
-    elif(UserChoice == 2 ):
-        print(s1.ContactName)
-        print(s1.ContactNumb)
-        print(s1.ContactEmail)
-        print(s1.favorite)
+    elif choice == 3:
+        key = input("Enter name to search --> ").lower()
+        found = False
+        for c in contacts:
+            if key in c.name.lower():
+                c.display()
+                found = True
+        if not found:
+            print("Not found.")
 
-    elif(UserChoice == 3):
+    elif choice == 4:
+        key = input("Enter exact name to update --> ").lower()
+        for c in contacts:
+            if c.name.lower() == key:
+                c.name = input("New name --> ")
+                c.number = input("New number --> ")
+                c.email = input("New email --> ")
+                c.favorite = input("Favorite? (yes/no) --> ")
+                print("Updated!")
+                break
+        else:
+            print("Not found.")
 
-    elif(UserChoice == 4):
-    elif(UserChoice == 5):
-    elif(UserChoice == 6):
-        Choice = False
+    elif choice == 5:
+        key = input("Enter exact name to delete --> ").lower()
+        for c in contacts:
+            if c.name.lower() == key:
+                contacts.remove(c)
+                print("Deleted!")
+                break
+        else:
+            print("Not found.")
+
+    elif choice == 6:
+        print("Goodbye!")
+        break
