@@ -4,6 +4,12 @@ class Student:
         self.classes = classes 
         self.marks = marks
         self.id = id 
+    def display(self):
+        print(f"Name     : {self.name}")
+        print(f"Classes  : {self.classes}")
+        print(f"Marks    : {self.marks}")
+        print(f"Id       : {self.id}")
+        print("-" * 30)
 
 student = []
 
@@ -36,3 +42,21 @@ while True:
             if(choice == 'no'):
                 break;
     elif(UserChoice == 2 ):
+        if not student:
+            print("No Student yet.")
+        for s in student:
+            s.display()
+    elif(UserChoice == 3 ):
+        searchStudent = input("Enter the Student Name Which is You Want to Search --> ").lower()
+        for s in student:
+            if searchStudent in s.name.lower():
+                print()
+            if not
+    elif(UserChoice == 4 ):
+    elif(UserChoice == 5 ):
+    elif(UserChoice == 6 ):
+    elif(UserChoice == 7 ):
+    elif(UserChoice == 8 ):
+    elif(UserChoice == 9 ):
+    elif(UserChoice == 10 ):
+        break;
